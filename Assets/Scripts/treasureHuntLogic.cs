@@ -132,8 +132,8 @@ public class treasureHuntLogic : MonoBehaviour
         int day = int.Parse(System.DateTime.Now.ToString("dd"));
 
         // Debug, test to start the game on valid date.
-        month = 12;
-        day = 24;
+        // month = 12;
+        // day = 24;
 
         if(month != 12 && day < 24) {
             errorString.SetActive(true);

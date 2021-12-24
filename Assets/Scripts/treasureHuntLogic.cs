@@ -104,8 +104,9 @@ public class treasureHuntLogic : MonoBehaviour
     public void Awake()
     {
         if(!executeStartup){
-            Debug.Log("Checking for progress...");
+            // Debug.Log("Checking for progress...");
             int level = PlayerPrefs.GetInt("level", 0);
+            // Debug.Log(level);
             currLevel = level;
 
             // Debug, test to start on a different level.
@@ -113,7 +114,7 @@ public class treasureHuntLogic : MonoBehaviour
             if(currLevel != 0){
                 setTextTM(ref startString, "CONTINUE");
             }else{
-                Debug.Log("No valid progress found...");
+                // Debug.Log("No valid progress found...");
                 setTextTM(ref startString, "START");
             }
             executeStartup = true;
@@ -135,7 +136,7 @@ public class treasureHuntLogic : MonoBehaviour
         // month = 12;
         // day = 24;
 
-        if(month != 12 && day < 24) {
+        if(month != 12 || day < 24) {
             errorString.SetActive(true);
             setTextTM(ref errorString, "BEGINS ON CHRISTMAS EVE...");
         }else{
@@ -191,7 +192,10 @@ public class treasureHuntLogic : MonoBehaviour
             currLevel += 1;
 
             // Final clue, will lead to gift!
-            if(currLevel == 23){
+            if(currLevel == 24){
+                title.SetActive(true);
+                setTextTM(ref title, "You made it, god jul!");
+                title.GetComponent<Animation>().enabled = true;
                 passCode.SetActive(false);
             }else{
                 setCurrentClue();
@@ -224,9 +228,10 @@ public class treasureHuntLogic : MonoBehaviour
 
     // Save player progress when leaving the app such that we
     // keep track of correctly entered passcodes.
-    void OnApplicationQuit()
+    void OnApplicationPause(bool pauseStatus)
     {
-        // Enable when testing is done, for now don't save player progress.
-        // PlayerPrefs.SetInt("level", currLevel);
+        if( pauseStatus ) {
+            PlayerPrefs.SetInt("level", currLevel);
+        }
     }
 }

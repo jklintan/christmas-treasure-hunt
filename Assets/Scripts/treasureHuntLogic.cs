@@ -216,8 +216,12 @@ public class treasureHuntLogic : MonoBehaviour
         return textObj.GetComponent<TMP_Text>().text;
     }
 
+    /// <summary>
     // Save player progress when leaving the app such that we
     // keep track of correctly entered passcodes.
+    /// </summary>
+    /// <param name="pauseStatus">True if user returns to
+    /// home screen on Android.</param>
     void OnApplicationPause(bool pauseStatus)
     {
         if( pauseStatus ) {

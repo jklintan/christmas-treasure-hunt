@@ -42,7 +42,7 @@ public class treasureHuntLogic : MonoBehaviour
     private bool executeStartup = false;
     private int currLevel = 0;
 
-    // TODO : The real passCodes and clues should be read from file.
+    // Example clues, real codes and clues exists in file on disk.
     private string[ ] passCodes = new string[]{
         "1", 
         "2", 
@@ -104,17 +104,12 @@ public class treasureHuntLogic : MonoBehaviour
     public void Awake()
     {
         if(!executeStartup){
-            // Debug.Log("Checking for progress...");
             int level = PlayerPrefs.GetInt("level", 0);
-            // Debug.Log(level);
             currLevel = level;
 
-            // Debug, test to start on a different level.
-            // currLevel = 2;
             if(currLevel != 0){
                 setTextTM(ref startString, "CONTINUE");
-            }else{
-                // Debug.Log("No valid progress found...");
+            }else{  // No valid progress found
                 setTextTM(ref startString, "START");
             }
             executeStartup = true;
@@ -131,10 +126,6 @@ public class treasureHuntLogic : MonoBehaviour
     public void startTreasureHunt() {
         int month = int.Parse(System.DateTime.Now.ToString("MM"));
         int day = int.Parse(System.DateTime.Now.ToString("dd"));
-
-        // Debug, test to start the game on valid date.
-        // month = 12;
-        // day = 24;
 
         if(month != 12 || day < 24) {
             errorString.SetActive(true);
@@ -163,7 +154,6 @@ public class treasureHuntLogic : MonoBehaviour
         yield return new WaitForSeconds(3);
 
         setCurrentClue();
-
         errorString.transform.position -= new Vector3(0, 3.5f, 0);
     }
 
